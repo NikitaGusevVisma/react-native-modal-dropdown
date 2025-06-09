@@ -13,6 +13,7 @@ import {
   Platform,
   TextInput,
   I18nManager,
+  StatusBar,
 } from "react-native";
 import PropTypes from "prop-types";
 
@@ -285,6 +286,7 @@ export default class ModalDropdown extends Component {
           visible
           transparent
           onRequestClose={this._onRequestClose}
+          statusBarTranslucent={Platform.OS === "android"}
           supportedOrientations={[
             "portrait",
             "portrait-upside-down",
@@ -314,6 +316,11 @@ export default class ModalDropdown extends Component {
     const dimensions = Dimensions.get("window");
     const windowWidth = dimensions.width;
     const windowHeight = dimensions.height;
+
+    // On Android, account for status bar in positioning
+    const statusBarHeight =
+      Platform.OS === "android" ? StatusBar.currentHeight || 25 : 0;
+
     const dropdownHeight =
       (dropdownStyle && StyleSheet.flatten(dropdownStyle).height) ||
       StyleSheet.flatten(styles.dropdown).height;
@@ -323,11 +330,12 @@ export default class ModalDropdown extends Component {
     const showInBottom =
       bottomSpace >= dropdownHeight || bottomSpace >= this._buttonFrame.y;
     const showInLeft = rightSpace >= this._buttonFrame.x;
+
     const positionStyle = {
       height: dropdownHeight,
       top: showInBottom
         ? this._buttonFrame.y + this._buttonFrame.h
-        : Math.max(0, this._buttonFrame.y - dropdownHeight),
+        : Math.max(statusBarHeight, this._buttonFrame.y - dropdownHeight),
     };
 
     if (showInLeft) {
