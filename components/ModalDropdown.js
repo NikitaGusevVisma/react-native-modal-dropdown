@@ -167,52 +167,8 @@ export default class ModalDropdown extends Component {
   }
 
   render() {
-    // Exclude ModalDropdown-specific props, pass everything else to View
-    const {
-      disabled,
-      multipleSelect,
-      scrollEnabled,
-      saveScrollPosition,
-      defaultIndex,
-      defaultValue,
-      options,
-      accessible,
-      animated,
-      isFullWidth,
-      showsVerticalScrollIndicator,
-      keyboardShouldPersistTaps,
-      showSearch,
-      keySearchObject,
-      renderSearch,
-      searchInputStyle,
-      searchPlaceholder,
-      textStyle,
-      defaultTextStyle,
-      dropdownStyle,
-      dropdownTextStyle,
-      dropdownTextHighlightStyle,
-      dropdownListProps,
-      dropdownTextProps,
-      adjustFrame,
-      renderRow,
-      renderRowComponent,
-      renderRowProps,
-      renderSeparator,
-      renderButtonText,
-      renderRowText,
-      renderButtonComponent,
-      renderRightComponent,
-      renderButtonProps,
-      onDropdownWillShow,
-      onDropdownWillHide,
-      onSelect,
-      numberOfLines,
-      buttonAndRightComponentContainerStyle,
-      ...viewProps
-    } = this.props;
-
     return (
-      <View {...viewProps}>
+      <View {...this.props}>
         {this._renderButton()}
         {this._renderModal()}
       </View>
